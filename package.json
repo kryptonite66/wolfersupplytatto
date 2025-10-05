@@ -1,0 +1,11 @@
+{
+  "name": "wolfer-supply-tatto-functions",
+  "version": "1.0.0",
+  "description": "Dependencies for Netlify Functions",
+  "dependencies": {
+    "xmldom": "^0.6.0"
+  },
+  "scripts": {
+    "start": "echo \"Ready to deploy\""
+  }
+}

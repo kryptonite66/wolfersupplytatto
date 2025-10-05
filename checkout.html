@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - WolferSupplyTatto</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f8f8f8; margin:0; padding:0; color:#333; }
+    .container { max-width:800px; margin:30px auto; background:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+    h1 { text-align:center; margin-bottom:10px; }
+    h2 { margin-top:25px; }
+    .resumo { background:#f3f3f3; padding:15px; border-radius:10px; margin-bottom:20px; }
+    .form-group { margin-bottom:15px; }
+    label { font-weight:bold; display:block; margin-bottom:6px; }
+    input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; box-sizing:border-box; }
+    .btn { display:inline-block; background:#e63946; color:#fff; padding:12px 20px; border:none; border-radius:8px; cursor:pointer; font-size:1rem; font-weight:bold; margin-top:15px; width:100%; transition:0.3s; }
+    .btn:hover { background:#d62839; }
+    #totalFinal { font-size: 1.5rem; font-weight: bold; color: #e63946; margin-top: 20px; text-align: center; }
+    #timer { font-weight:bold; color:#e63946; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Finalize sua Compra</h1>
+  <p style="color:#e63946; text-align:center;">
+    ⚡ Promoção válida pelos próximos <span id="timer">10:00</span> minutos!
+  </p>
+
+  <div class="resumo">
+    <h2>Resumo do Pedido</h2>
+    <p>Produtos (Subtotal): <span id="resumoProdutos"></span></p>
+    <p>Desconto: <span id="resumoDesconto">- R$ 0,00</span> 
+      <span id="statusCupom" style="font-size:0.8rem; margin-left:10px;"></span>
+    </p>
+  </div>
+
+  <form id="checkoutForm">
+    
+    <div class="form-group">
+        <label for="quantidade">Quantidade:</label>
+        <select id="quantidade" onchange="atualizarResumo()">
+            <option value="1">1 Pomada TKTX GOLD</option>
+            <option value="2">2 Pomadas TKTX GOLD</option>
+            <option value="3">3 Pomadas TKTX GOLD</option>
+            <option value="4">4 Pomadas TKTX GOLD</option>
+            <option value="5">5 Pomadas TKTX GOLD</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="cupom">Cupom de Desconto:</label>
+        <input type="text" id="cupom" placeholder="Digite o cupom (ex: WOLFER10)" onblur="atualizarResumo()">
+        <small style="display:block; margin-top:5px; color:#1a73e8;">Use WOLFER10 para ganhar 10% OFF na sua 1ª compra!</small>
+    </div>
+
+    <div class="form-group">
+      <label for="cepDestino">CEP:</label>
+      <input type="text" id="cepDestino" placeholder="Ex: 12345678" maxlength="9" required onblur="buscarEndereco()">
+    </div>
+
+    <div class="form-group">
+      <label for="endereco">Endereço Completo:</label>
+      <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade" required>
+    </div>
+    
+    <h2>Seus Dados</h2>
+    <div class="form-group">
+      <label for="nome">Nome Completo:</label>
+      <input type="text" id="nome" placeholder="Seu nome completo" required>
+    </div>
+
+    <div class="form-group">
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" placeholder="Seu CPF (para emissão da nota)" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="telefone">Telefone / WhatsApp:</label>
+      <input type="tel" id="telefone" placeholder="DDD + Número" required>
+    </div>
+
+    <h2>Forma de Pagamento</h2>
+    <div class="form-group">
+      <label for="pagamento">Escolha o Pagamento:</label>
+      <select id="pagamento" required>
+        <option value="Pix">PIX (Aprovação imediata)</option>
+        <option value="Cartão">Cartão de Crédito/Débito</option>
+        <option value="Boleto">Boleto Bancário (1-2 dias úteis)</option>
+      </select>
+    </div>
+
+    <p style="font-size:0.9rem; text-align:center; margin-top:20px;">
+      Ao clicar em "Finalizar Pedido", você será redirecionado ao nosso WhatsApp para confirmar os dados e calcular o frete manualmente.
+    </p>
+
+    <div id="totalFinal">💰 Total: R$ 74,90</div>
+
+    <button type="button" class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+  </form>
+</div>
+
+<!-- Botão flutuante do WhatsApp -->
+<a href="https://wa.me/5581999891423" target="_blank" 
+   style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;
+   padding:14px 18px;border-radius:50%;font-size:1.6rem;text-decoration:none;
+   box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+   💬
+</a>
+
+<script>
+  const PRECO_UNITARIO = 74.90;
+  const CUPOM_VALIDO = 'WOLFER10';
+  const DESCONTO_PORCENTAGEM = 0.10;
+  const WHATSAPP_NUMERO = '5581999891423'; // seu número
+  let precoProdutos = PRECO_UNITARIO;
+  let valorDesconto = 0;
+
+  function atualizarResumo() {
+    const quantidade = parseInt(document.getElementById("quantidade").value);
+    const cupom = document.getElementById("cupom").value.toUpperCase().trim();
+
+    precoProdutos = PRECO_UNITARIO * quantidade;
+    valorDesconto = 0;
+
+    const statusCupomEl = document.getElementById("statusCupom");
+    if (cupom === CUPOM_VALIDO) {
+      valorDesconto = precoProdutos * DESCONTO_PORCENTAGEM;
+      statusCupomEl.innerText = "Cupom aplicado!";
+      statusCupomEl.style.color = "green";
+    } else if (cupom.length > 0) {
+      statusCupomEl.innerText = "Cupom inválido.";
+      statusCupomEl.style.color = "red";
+    } else {
+      statusCupomEl.innerText = "";
+    }
+
+    document.getElementById("resumoProdutos").innerText = 
+      `R$ ${precoProdutos.toFixed(2).replace(".", ",")} (${quantidade}x R$ ${PRECO_UNITARIO.toFixed(2).replace(".", ",")})`;
+
+    document.getElementById("resumoDesconto").innerText = 
+      `- R$ ${valorDesconto.toFixed(2).replace(".", ",")}`;
+
+    const subtotal = precoProdutos - valorDesconto;
+    document.getElementById("totalFinal").innerText = `💰 Total sem frete: R$ ${subtotal.toFixed(2).replace(".", ",")}`;
+  }
+
+  async function buscarEndereco() {
+    const cep = document.getElementById("cepDestino").value.replace(/\D/g, '');
+    if (cep.length !== 8) return;
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await res.json();
+      if (data.logradouro) {
+        document.getElementById("endereco").value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+      }
+    } catch (e) {
+      console.log("Erro ao buscar endereço:", e);
+    }
+  }
+
+  function iniciarTimer() {
+    let tempo = 10 * 120; // 20 minutos
+    const timerEl = document.getElementById('timer');
+    const interval = setInterval(() => {
+      const min = Math.floor(tempo / 60);
+      const seg = tempo % 60;
+      timerEl.textContent = `${min}:${seg.toString().padStart(2, '0')}`;
+      if (tempo <= 0) {
+        clearInterval(interval);
+        timerEl.textContent = "Expirado";
+      }
+      tempo--;
+    }, 1000);
+  }
+
+  function finalizarPedido() {
+    const quantidade = document.getElementById("quantidade").value;
+    const cupom = document.getElementById("cupom").value.toUpperCase().trim();
+    const subtotal = precoProdutos - valorDesconto;
+
+    const msg = `
+📦 Novo Pedido - WolferSupplyTatto
+👤 Nome: ${document.getElementById("nome").value}
+📱 Telefone: ${document.getElementById("telefone").value}
+🪪 CPF: ${document.getElementById("cpf").value}
+🏠 Endereço: ${document.getElementById("endereco").value}
+📮 CEP: ${document.getElementById("cepDestino").value}
+🛒 Qtd Pomadas: ${quantidade}
+💵 Subtotal: R$ ${subtotal.toFixed(2).replace(".", ",")}
+🎟️ Cupom: ${cupom || 'Nenhum'}
+💳 Pagamento: ${document.getElementById("pagamento").value}
+
+🚚 O cálculo do frete será feito manualmente via WhatsApp.
+✅ Total estimado (sem frete): R$ ${subtotal.toFixed(2).replace(".", ",")}
+`;
+
+    const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    atualizarResumo();
+    iniciarTimer();
+  });
+</script>
+
+</body>
+</html>

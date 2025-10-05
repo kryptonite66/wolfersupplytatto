@@ -1,0 +1,612 @@
+<!DOCTYPE html>  <html lang="pt-BR">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>WolferSupplyTatto - Produto Exclusivo</title>    <!-- Google Ads Tag (Substitua pelo seu ID) -->    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>    <script>  
+    window.dataLayer = window.dataLayer || [];  
+    function gtag(){dataLayer.push(arguments);}  
+    gtag('js', new Date());  
+    gtag('config', 'AW-XXXXXXXXXX');  
+  </script>    <!-- Meta Pixel Facebook (Substitua pelo seu ID) -->    <script>  
+    !function(f,b,e,v,n,t,s)  
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?  
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};  
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';  
+    n.queue=[];t=b.createElement(e);t.async=!0;  
+    t.src=v;s=b.getElementsByTagName(e)[0];  
+    s.parentNode.insertBefore(t,s)}(window, document,'script',  
+    'https://connect.facebook.net/en_US/fbevents.js');  
+    fbq('init', 'XXXXXXXXXXXXXXX');  
+    fbq('track', 'PageView');  
+  </script>    <noscript>  
+    <img height="1" width="1" style="display:none"  
+    src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1"/>  
+  </noscript>    <style>  
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #f8f8f8; color: #333; scroll-behavior: smooth; }  
+  
+  /* Botões sociais laterais fixos */
+.social-buttons {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.social-buttons a img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.social-buttons a img:hover {
+  transform: scale(1.2);
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+@media (max-width:768px) {
+  .social-buttons a img { width: 40px; height: 40px; }
+}
+@media (max-width:480px) {
+  .social-buttons a img { width: 35px; height: 35px; }
+}
+  
+    /* Header com imagem de fundo */  
+    header {  
+      background-image: url('imagens/fundo.jpg');  
+      background-size: cover;  
+      background-position: center;  
+      color: #fff;  
+      padding: 7rem 2rem;  
+      text-align: center;  
+      position: relative;  
+    }  
+    header .overlay {  
+      position: absolute;  
+      top: 0; left: 0; width: 100%; height: 100%;  
+      background: rgba(0,0,0,0.6);  
+      z-index: 1;  
+    }  
+    header h1, header p, header .btn {  
+      position: relative;  
+      z-index: 2;  
+    }  
+    header h1 { font-size: 3.2rem; margin-bottom: 1rem; }  
+    header p { font-size: 1.4rem; }  
+  
+    /* Botões */  
+    .btn { display: inline-block; padding: 1rem 2rem; margin: 1rem; background: #e63946; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }  
+    .btn:hover { transform: scale(1.05); }  
+    .btn.secondary { background: #06c167; }  
+    .pulse { animation: pulse 1.5s infinite; }  
+    @keyframes pulse { 0% { transform: scale(1);} 50% { transform: scale(1.05);} 100% { transform: scale(1);} }  
+  
+    /* Estrutura */  
+    .section { padding: 4rem 2rem; text-align: center; max-width: 1100px; margin: auto; }  
+    h2 { font-size: 2.2rem; margin-bottom: 2rem; }  
+  
+    /* Cards */  
+    .benefits, .images { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }  
+    .benefit, .product-card { background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; }  
+    .benefit:hover, .product-card:hover { transform: translateY(-5px); }  
+    .product-card img { width: 100%; border-radius: 12px; cursor: pointer; }  
+  
+    /* Detalhes do produto */  
+    .detalhes {  
+      display: none;  
+      margin-top: 1rem;  
+      text-align: left;  
+      background: #f9f9f9;  
+      padding: 1rem;  
+      border-radius: 8px;  
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);  
+    }  
+    .detalhes h4 { margin-bottom: 0.5rem; }  
+    .detalhes ul { list-style: none; padding: 0; }  
+    .detalhes ul li { margin: 0.3rem 0; }  
+  
+    /* Vídeo responsivo */  
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 2rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }  
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px; }  
+  
+    /* Depoimentos */  
+    .testimonials { background: #fff; padding: 2rem; border-radius: 12px; margem-top: 2rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }  
+  
+    /* Animações de entrada */  
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 1.5s forwards; }  
+    .fade-in.delay { animation-delay: 1s; }  
+    @keyframes fadeIn { to { opacity: 1; transform: translateY(0);} }  
+  
+    /* CTA Fixo */  
+    .sticky-cta { position: fixed; bottom: 0; left: 0; width: 100%; background: #e63946; color: #fff; text-align: center; padding: 1rem; z-index: 999; }  
+    .sticky-cta a { color: #fff; font-weight: bold; margin: 0 1rem; }  
+  
+    /* Pop-up */  
+    .popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 1000; }  
+    .popup-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 400px; position: relative; }  
+    .popup-content h3 { margin-bottom: 1rem; }  
+    .popup .btn { margin-top: 1rem; }  
+    .close-popup { position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 1.4rem; cursor: pointer; }  
+    .popup-checkbox { margin-top: 1rem; font-size: 0.9rem; color: #333; }  
+  
+    /* Rodapé (dark) */  
+    footer { background: #111; color: #bbb; text-align: center; padding: 2.5rem 1rem; font-size: 0.95rem; }  
+    footer a { color: #ddd; text-decoration: none; margin: 0 0.5rem; }  
+  
+    /* Footer - grid de lojas */  
+    .store-grid { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin: 0 auto 30px; max-width:900px; }  
+    .store-card { text-decoration:none; color:#fff; max-width:180px; transition:transform 0.25s, box-shadow 0.25s; display:block; text-align:center; }  
+    .store-card img { width:100%; border-radius:10px; box-shadow:0 6px 16px rgba(0,0,0,0.25); display:block; }  
+    .store-card p { margin-top:10px; font-weight:bold; color:#fff; }  
+    .store-card:hover { transform: translateY(-6px); box-shadow:0 10px 22px rgba(0,0,0,0.35); }  
+  
+    /* Footer - botões */  
+    .footer-buttons { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:18px; }  
+    .footer-button { display:inline-block; padding:12px 20px; border-radius:999px; font-weight:bold; box-shadow:0 6px 14px rgba(0,0,0,0.18); text-decoration:none; color:#fff; transition:transform 0.2s; }  
+    .footer-button:hover { transform: translateY(-3px); opacity:0.95; }  
+    .whatsapp { background:#25D366; }  
+    .mercadopago { background:#0070ba; }  
+  
+    /* Responsivo */  
+    @media (max-width:480px) {  
+      header { padding:4.5rem 1rem; }  
+      header h1 { font-size:2rem; }  
+      .store-card { max-width:140px; }  
+    }  
+  
+  /* Grid de Links Úteis */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.2rem;
+  background: #e63946; /* cor padrão, muda por classe */
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.link-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* Cores por tipo */
+.link-card.whatsapp { background: #25D366; }
+.link-card.instagram { background: #E1306C; }
+.link-card.gmail { background: #D44638; }
+.link-card.clientes { background: #06c167; }
+.link-card.tutorial { background: #f4a261; }
+
+/* Responsivo */
+@media (max-width:480px) {
+  .link-card { font-size: 0.9rem; padding: 0.8rem; }
+}
+  
+/* Seção Selos de Pagamento (visual mais limpo) */
+#selos-pagamento {
+  padding: 2rem 1rem;
+  background: #fff; /* fundo branco para destacar */
+  text-align: center;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+#selos-pagamento h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+#selos-pagamento .selos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+#selos-pagamento .selo {
+  background: #f3f3f3;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#selos-pagamento .selo img {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+#selos-pagamento .selo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+/* Responsivo */
+@media (max-width:480px) {
+  #selos-pagamento h2 {
+    font-size: 1.3rem;
+  }
+  #selos-pagamento .selo img {
+    max-height: 40px;
+  }
+}
+  
+  </style>  </head>  
+<body>   
+  
+  <!-- Botões sociais laterais -->
+<div class="social-buttons">
+  
+  <!-- Logo redonda dentro da barra lateral -->
+<a href="index.html" class="social logo-btn" title="WolferSupply">
+  <img src="imagens/logo.png" alt="Logo WolferSupply">
+</a>
+  <a href="https://wa.me/5581999891423?text=Ol%C3%A1!%20Vim%20do%20site" target="_blank">
+    <img src="imagens/whatsapp.png" alt="WhatsApp">
+  </a>
+  <a href="https://www.instagram.com/wolfersupplytattoo?igsh=MWdwYnA0cmZpdG9kZQ%3D%3D&utm_source=qr" target="_blank">
+    <img src="imagens/instagram.png" alt="Instagram">
+  </a>
+  <a href="mailto:wolfersupplytatto@gmail.com" target="_blank">
+    <img src="imagens/email.png" alt="Gmail">
+  </a>
+</div>
+  
+  <!-- Pop-up de desconto -->  
+  <div class="popup" id="popup" aria-hidden="true">  
+    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">  
+      <button class="close-popup" aria-label="Fechar">✕</button>  
+      <h3 id="popupTitle">🎉 Ganhe 10% OFF na sua primeira compra no site!</h3>  
+      <p>Use o cupom <strong>WOLFER10</strong> no Whatsapp.</p>  
+      <!-- botão atualizado: tem id para o script -->  
+      <a href="#compra" class="btn" id="aproveitarAgora">Aproveitar Agora</a>  
+      <div class="popup-checkbox">  
+        <input type="checkbox" id="naoMostrar"> <label for="naoMostrar">Não mostrar novamente</label>  
+      </div>  
+    </div>  
+  </div>    <!-- Hero Section -->    <header>  
+    <div class="overlay"></div>  
+    <h1 class="fade-in">WolferSupplyTatto</h1>  
+    <p class="fade-in delay">Produto exclusivo para quem valoriza estilo e autenticidade</p>  
+    <a href="#compra" class="btn pulse">Quero Comprar Agora</a>  
+  </header>    <!-- Benefícios -->    <section class="section fade-in">  
+    <h2>Por que escolher WolferSupplyTatto?</h2>  
+    <div class="benefits">  
+      <div class="benefit">  
+        <h3>✅ Qualidade Premium</h3>  
+        <p>Produzido com materiais de primeira linha para máxima durabilidade.</p>  
+      </div>  
+      <div class="benefit">  
+        <h3>🔥 Exclusividade</h3>  
+        <p>Distribuidora oficial da TKTX! Qualidade e preço baixo você só encontra aqui.</p>  
+      </div>  
+      <div class="benefit">  
+        <h3>🚚 Entrega Rápida</h3>  
+        <p>Receba seu pedido com segurança e rapidez em todo o Brasil.</p>  
+      </div>  
+    </div>  
+  </section>    <!-- Seção de Imagens do Produto -->    <section class="section product-images fade-in">  
+    <h2>Conheça nossa pomada</h2>  
+    <div class="images">  
+      <!-- Primeiro produto com interação -->  
+      <div class="product-card">  
+        <img src="imagens/produto1.png" alt="Pomada TKTX GOLD 99%" id="produto1">  
+        <div class="detalhes" id="detalhes1">  
+          <h4>Pomada TKTX GOLD 99%</h4>  
+          <ul>  
+            <li>⏳ Duração: Efeito prolongado com até 8 horas de duração</li>  
+            <li>📏 Tamanho: 10cm</li>  
+            <li>⚖️ Peso: 10g</li>  
+            <li>🏷️ Categoria: Anestésico profissional</li>  
+          </ul>  
+        </div>  
+      </div>  <!-- Outros produtos (sem interação) -->  
+  <div class="product-card"><img src="imagens/produto2.png" alt="Produto 2"></div>  
+  <div class="product-card"><img src="imagens/produto3.jpg" alt="Produto 3"></div>  
+</div>
+
+  </section>    <!-- Seção de Tutorial -->    <section class="section product-tutorial fade-in">  
+    <h2>Aprenda a usar a TKTX GOLD 99%</h2>  
+    <p>Veja o passo a passo completo de aplicação da pomada.</p>  
+    <a href="passo-a-passo.html" class="btn secondary">📖 Ver Tutorial Completo</a>  
+  </section>    <!-- Depoimentos -->    <section class="section fade-in">  
+    <h2>O que nossos clientes dizem</h2>  
+    <div class="testimonials">  
+      <p><strong>Mariana Vieira.</strong> ⭐⭐⭐⭐⭐<br> "Produto incrível, qualidade impecável, recomendo demais!"</p>  
+      <p><strong>Rafael Torres.</strong> ⭐⭐⭐⭐⭐<br> "Chegou rápido e superou minhas expectativas."</p>  
+      <p><strong>José Lucas.</strong> ⭐⭐⭐⭐⭐<br> "A melhor loja e a melhor pomada do mercado. Entrega rápida, ótimo atendimento e efeito longo de duração da anestesia."</p>  
+      <p><strong>Matheus V.</strong> ⭐⭐⭐⭐⭐<br> "Nota 10 em todos os sentidos. Recomendo muito, com certeza comprarei novamente!"</p>  
+    </div>  
+    
+    <!-- Botão para ver mais depoimentos -->
+  <div style="text-align:center; margin-top:20px;">
+    <a href="clientes.html" class="btn secondary">✨ Ver mais depoimentos com fotos e vídeo</a>
+  </div>
+</section>
+ 
+  
+<section id="compra" class="section fade-in">  
+    
+  
+    
+    <h2>Compre agora e aproveite nossa promoção</h2>  
+    <p><strong>De R$84,90 por apenas R$74,90 a unidade</strong></p>  
+    <a href="https://wa.me/5581999891423?text=Ol%C3%A1%21%20Vim%20direto%20do%20site%20e%20quero%20saber%20mais%20sobre%20o%20produto." target="_blank" class="btn secondary">Comprar pelo WhatsApp</a>  
+    <a href="checkout.html" class="btn">Comprar pelo site</a>  
+  </section>   
+  
+  <!-- CTA fixo -->    <div class="sticky-cta">  
+    <a href="#compra">⚡ Garanta já o seu com desconto!</a>  
+  </div>    
+
+<section id="selos-pagamento" class="fade-in">
+  <h2>Formas de Pagamento Aceitas</h2>
+  <div class="selos-grid">
+    <div class="selo"><img src="imagens/visa.png" alt="Visa"></div>
+    <div class="selo"><img src="imagens/mastercard.png" alt="Mastercard"></div>
+    <div class="selo"><img src="imagens/elo.png" alt="Elo"></div>
+    <div class="selo"><img src="imagens/amex.png" alt="American Express"></div>
+    <div class="selo"><img src="imagens/pix.png" alt="Pix"></div>
+    <div class="selo"><img src="imagens/boleto.png" alt="Boleto"></div>
+  </div>
+</section>
+
+<!-- Seção Links Úteis -->
+<section class="section fade-in" id="links-uteis">
+  <h2>🔗 Links Úteis</h2>
+  <div class="links-grid">
+    <a href="https://wa.me/5581999891423" target="_blank" class="link-card whatsapp">
+      💬 WhatsApp
+    </a>
+    <a href="https://www.instagram.com/wolfersupplytattoo?igsh=MWdwYnA0cmZpdG9kZQ%3D%3D&utm_source=qr" target="_blank" class="link-card instagram">
+      📸 Instagram
+    </a>
+    <a href="mailto:wolfersupplytatto@gmail.com" class="link-card gmail">
+      ✉️ Gmail
+    </a>
+ 
+    <a href="clientes.html" class="link-card clientes">
+      👥 Avaliações
+    </a>
+    <a href="passo-a-passo.html" class="link-card tutorial">
+      📖 Tutorial de Aplicação
+    </a>
+  </div>
+</section>
+
+ <!-- ===== RODAPÉ COM LOJAS E BOTÕES ===== -->
+<footer>
+  <h2 style="color:#fff; margin-bottom:18px; font-size:16px; font-weight:normal;">
+    Economize agora 💰: utilize seu cupom de desconto nas principais plataformas de compra 👇👇👇
+  </h2>
+
+  <div class="store-grid">
+    <!-- Amazon -->
+    <a class="store-card" href="https://www.amazon.com.br/dp/B0F7SNWSC7" target="_blank" rel="noopener">
+      <img class="store-img" src="imagens/amazon.png" alt="Comprar na Amazon">
+      <p>🛒 Amazon</p>
+    </a>
+
+    <!-- Shopee -->
+    <a class="store-card" href="https://shopee.com.br/wolfersupplytatto" target="_blank" rel="noopener">
+      <img class="store-img" src="imagens/shopee.png" alt="Comprar na Shopee">
+      <p>🛍️ Shopee</p>
+    </a>
+
+    <!-- Mercado Livre -->
+    <a class="store-card" href="https://www.mercadolivre.com.br/up/MLBU3159027884?pdp_filters=item_id:MLB5373690262#origin=share&sid=share&wid=MLB5373690262&action=copy" target="_blank" rel="noopener">
+      <img class="store-img" src="imagens/mercadolivre.png" alt="Comprar no Mercado Livre">
+      <p>📦 Mercado Livre</p>
+    </a>
+    
+    <!-- Magazine Luiza -->
+    <a class="store-card" href="https://www.magazineluiza.com.br/pomada-para-tatuagem-original-numb/p/ag20cf13f9/pf/pmcb/" target="_blank" rel="noopener">
+      <img class="store-img" src="imagens/magalu.jpg" alt="Comprar na Magalu">
+      <p>💙🛍Magalu</p>
+    </a>
+    
+  </div>
+
+  <hr style="margin:20px auto 26px; width:80%; border:0; border-top:1px solid rgba(255,255,255,0.06);">
+
+  <div class="footer-buttons">
+    <!-- Mensagem personalizada no WhatsApp -->
+    <a class="footer-button whatsapp" href="https://wa.me/5581999891423?text=Ol%C3%A1%21%20Vim%20direto%20do%20site%20e%20quero%20saber%20mais%20sobre%20o%20produto." target="_blank" rel="noopener">
+      💬 WhatsApp
+    </a>
+
+    
+  </div>
+
+  <div style="margin-top:10px; font-size:14px; color:#bbb;">
+    <a href="politica-privacidade.html">Política de Privacidade</a> |
+    <a href="termos.html">Termos de Uso</a> |
+    <a href="reembolso.html">Política de Troca e Reembolso</a> |
+    <a href="https://wa.me/5581999891423">Contato</a>
+  </div>
+
+  <p style="margin-top:18px; font-size:14px; color:#777;">
+    © 2025 WolferSupplyTatto. Todos os direitos reservados.
+  </p>
+</footer>   <!-- Scripts -->    <script>  
+    // Funções de cookie para popup  
+    function setCookie(name, value, days) {  
+      let expires = "";  
+      if (days) {  
+        const date = new Date();  
+        date.setTime(date.getTime() + (days*24*60*60*1000));  
+        expires = "; expires=" + date.toUTCString();  
+      }  
+      document.cookie = name + "=" + (value || "")  + expires + "; path=/";  
+    }  
+    function getCookie(name) {  
+      const nameEQ = name + "=";  
+      const ca = document.cookie.split(';');  
+      for(let i=0;i < ca.length;i++) {  
+        let c = ca[i];  
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);  
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);  
+      }  
+      return null;  
+    }  
+  
+    function closePopup() {  
+      const popup = document.getElementById('popup');  
+      if (!popup) return;  
+      popup.style.display = 'none';  
+      popup.setAttribute('aria-hidden', 'true');  
+      // Se checkbox estava marcada, persistir preferência  
+      const naoMostrarEl = document.getElementById('naoMostrar');  
+      if (naoMostrarEl && naoMostrarEl.checked) {  
+        setCookie('popupClosed', 'true', 30);  
+      }  
+    }  
+  
+    window.addEventListener('load', function(){  
+      // Mostrar popup após 5s se cookie não estiver setado  
+      if (!getCookie('popupClosed')) {  
+        setTimeout(() => {  
+          const popup = document.getElementById('popup');  
+          if (popup) {  
+            popup.style.display = 'flex';  
+            popup.setAttribute('aria-hidden', 'false');  
+          }  
+        }, 5000);  
+      }  
+  
+      // Fechar popup pelo X  
+      const closeBtn = document.querySelector('.close-popup');  
+      if (closeBtn) closeBtn.addEventListener('click', closePopup);  
+  
+      // Fechar quando clica fora do conteúdo (na sombra)  
+      const popupWrap = document.getElementById('popup');  
+      if (popupWrap) {  
+        popupWrap.addEventListener('click', function(e) {  
+          if (e.target && e.target.id === 'popup') closePopup();  
+        });  
+      }  
+  
+      // Fechar com ESC  
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closePopup(); });  
+  
+      // Ao clicar em "Aproveitar Agora": prevenir salto padrão, fechar popup, gravar cookie e rolar suavemente para #compra  
+      const btnAproveitar = document.getElementById('aproveitarAgora');  
+      if (btnAproveitar) {  
+        btnAproveitar.addEventListener('click', function(e){  
+          e.preventDefault();  
+          // marcar para não mostrar novamente (comportamento útil)  
+          setCookie('popupClosed', 'true', 30);  
+          closePopup();  
+          const compraEl = document.getElementById('compra');  
+          if (compraEl) {  
+            compraEl.scrollIntoView({ behavior: 'smooth', block: 'start' });  
+            // atualiza hash sem pular instantaneamente  
+            history.replaceState(null, '', '#compra');  
+          } else {  
+            // fallback: muda o hash  
+            location.hash = '#compra';  
+          }  
+        });  
+      }  
+  
+      // Interação no primeiro produto (segura: só adiciona listener se existir)  
+      const produto1 = document.getElementById('produto1');  
+      const detalhes1 = document.getElementById('detalhes1');  
+      if (produto1 && detalhes1) {  
+        produto1.addEventListener('click', function(){  
+          if (detalhes1.style.display === 'block') {  
+            detalhes1.style.display = 'none';  
+          } else {  
+            detalhes1.style.display = 'block';  
+          }  
+        });  
+      }  
+    });  
+  </script> 
+  
+  <script>
+const precoProduto = 74.90; // coloque aqui o valor real da pomada
+let opcoesFrete = {}; // armazenar opções retornadas
+
+async function calcularFrete() {
+  const cepDestino = document.getElementById("cepDestino").value;
+
+  try {
+    // chama a função serverless do Netlify
+    const response = await fetch(`/.netlify/functions/calcular-frete?cepDestino=${cepDestino}`);
+    const text = await response.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, "text/xml");
+
+    const servicosNode = xml.getElementsByTagName("cServico");
+    opcoesFrete = {}; // resetar
+    let radios = "<h4 style='margin-bottom:10px;'>Escolha a forma de envio:</h4>";
+
+    for (let i = 0; i < servicosNode.length; i++) {
+      const codigo = servicosNode[i].getElementsByTagName("Codigo")[0].textContent;
+      const valor = servicosNode[i].getElementsByTagName("Valor")[0].textContent;
+      const prazo = servicosNode[i].getElementsByTagName("PrazoEntrega")[0].textContent;
+
+      let nomeServico = "";
+      if (codigo === "04014") nomeServico = "SEDEX";
+      if (codigo === "04510") nomeServico = "PAC";
+
+      const valorNum = parseFloat(valor.replace(",", "."));
+      opcoesFrete[codigo] = valorNum;
+
+      radios += `
+        <label style="display:block; margin-bottom:8px; cursor:pointer;">
+          <input type="radio" name="freteOpcao" value="${codigo}" 
+                 onclick="atualizarTotal(${valorNum})"> 
+          <strong>${nomeServico}:</strong> R$ ${valor} – ${prazo} dias úteis
+        </label>
+      `;
+    }
+
+    document.getElementById("resultadoFrete").innerHTML = radios;
+    document.getElementById("totalComFrete").innerText = "";
+  } catch (err) {
+    document.getElementById("resultadoFrete").innerHTML = "Erro ao calcular o frete. Verifique o CEP.";
+    document.getElementById("totalComFrete").innerText = "";
+  }
+}
+
+function atualizarTotal(valorFrete) {
+  const total = (precoProduto + valorFrete).toFixed(2).replace(".", ",");
+  document.getElementById("totalComFrete").innerText = `💰 Total com frete: R$ ${total}`;
+}
+</script>
+  
+  
+  
+         </body>  
+  
+  
+  
+                </html>

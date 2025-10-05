@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientes Reais - Recomendações</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    margin: 0;
+    padding: 0;
+    background: #f9fafb;
+    color: #111;
+  }
+
+  header {
+    background: linear-gradient(90deg, #ff9900, #ff6600);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  header h1 { margin:0; font-size:22px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .stars { color:#ff9900; font-size:18px; margin-bottom:8px; }
+  .card-content p { margin:0 0 10px; font-size:14px; line-height:1.5; }
+  .author { font-weight:600; font-size:14px; color:#333; }
+
+  .video-review {
+    background: #f9fafb;
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  .video-review h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #111;
+  }
+
+  .video-box {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+
+  .video-box video { width:100%; display:block; }
+
+  .video-caption {
+    margin-top:15px;
+    font-size:15px;
+    color:#333;
+    font-style:italic;
+  }
+
+  /* LIGHTBOX */
+  #lightbox {
+    display:none;
+    position: fixed;
+    z-index:9999;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #lightbox img {
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
+    cursor: grab;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  #lightbox .close-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: rgba(0,0,0,0.6);
+    color:#fff;
+    border:none;
+    font-size:24px;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    z-index:10000;
+  }
+
+  /* Ícones sociais fixos */
+  .social-icons {
+    position: fixed;
+    top: 50%;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-50%);
+    z-index:10000;
+  }
+
+  .social-icons a img {
+    width:50px; height:50px;
+    border-radius:50%;
+    transition: transform 0.2s;
+  }
+
+  .social-icons a img:hover { transform: scale(1.1); }
+
+  footer {
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+    color:#666;
+    background:#fff;
+    border-top:1px solid #eee;
+  }
+  
+  .btn-voltar {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #ff9900, #ff6600);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-voltar:hover {
+  background: linear-gradient(90deg, #ff6600, #ff3300);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Veja o que nossos clientes dizem ✨</h1>
+</header>
+
+<main>
+  <section class="grid">
+    <div class="card"><img src="imagens/cliente1.jpg" alt="Cliente 1" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author"> Everton Dos Santos – Campo Limpo Paulista SP</div></div></div>
+    <div class="card"><img src="imagens/cliente2.jpg" alt="Cliente 2" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author">Vanessa Simoes – Rio de Janeiro RJ</div></div></div>
+    <div class="card"><img src="imagens/cliente3.jpg" alt="Cliente 3" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author">Ani Santos – Belo Horizonte MG</div></div></div>
+    <div class="card"><img src="imagens/cliente4.jpg" alt="Cliente 4" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author">Rayssa Souza – Brasília DF </div></div></div>
+    <div class="card"><img src="imagens/cliente5.jpg" alt="Cliente 5" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author">Wallaf – Recife PE</div></div></div>
+    <div class="card"><img src="imagens/cliente6.jpg" alt="Cliente 6" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author">Everton A. – Campinas SP</div></div></div>
+    <div class="card"><img src="imagens/cliente7.jpg" alt="Cliente 7" onclick="openLightbox(this)"><div class="card-content"><div class="stars">★★★★★</div><p></p><div class="author">Flávia Prado - Blumenal SC </div></div></div>
+  </section>
+
+  <section class="video-review">
+    <h2>Depoimento de um de nossos clientes fiéis ✨</h2>
+    <div class="video-box">
+      <video controls poster="imagens/capa-video.jpg">
+        <source src="imagens/cliente-depoimento.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+      </video>
+    </div>
+    <p class="video-caption">"Não senti dor alguma ao realizar o procedimento, TKTX de qualidade." – Robson Novais, Guarulhos - SP.</p>
+  </section>
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="close-btn" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="">
+</div>
+
+<!-- Ícones sociais fixos -->
+<div class="social-icons">
+  <a href="https://wa.me/5581999891423?text=Ol%C3%A1%21%20Vim%20direto%20do%20site%20e%20quero%20saber%20mais%20sobre%20o%20produto." target="_blank"><img src="imagens/whatsapp.png" alt="WhatsApp"></a>
+  <a href="https://www.instagram.com/wolfersupplytattoo?igsh=MWdwYnA0cmZpdG9kZQ%3D%3D&utm_source=qr" target="_blank"><img src="imagens/instagram.png" alt="Instagram"></a>
+  <a href="mailto:wolfersupplytatto@gmail.com" target="_blank"><img src="imagens/email.png" alt="Email"></a>
+ 
+</div>
+  
+  <div style="text-align:center; margin:20px 0;">
+  <a href="index.html" class="btn-voltar">⬅ Voltar para Página Inicial</a>
+</div>
+
+<footer>
+  &copy; 2025 WolferSupplyTatto – Todos os direitos reservados.
+</footer>
+
+<script>
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+let scale = 1, originX=0, originY=0, isDragging=false, startX, startY;
+
+function openLightbox(img){
+  lbImg.src = img.src;
+  scale = 1;
+  originX = 0; originY=0;
+  lbImg.style.transform = `translate(0px,0px) scale(${scale})`;
+  lightbox.style.display = 'flex';
+}
+
+function closeLightbox(){
+  lightbox.style.display = 'none';
+  scale = 1;
+  originX=0; originY=0;
+}
+
+lbImg.addEventListener('wheel', function(e){
+  e.preventDefault();
+  scale += e.deltaY * -0.001;
+  scale = Math.min(Math.max(1, scale), 3);
+  lbImg.style.transform = `translate(${originX}px,${originY}px) scale(${scale})`;
+});
+
+lbImg.addEventListener('mousedown', function(e){
+  isDragging = true;
+  startX = e.clientX - originX;
+  startY = e.clientY - originY;
+  lbImg.style.cursor='grabbing';
+});
+
+window.addEventListener('mousemove', function(e){
+  if(!isDragging) return;
+  originX = e.clientX - startX;
+  originY = e.clientY - startY;
+  lbImg.style.transform = `translate(${originX}px,${originY}px) scale(${scale})`;
+});
+
+window.addEventListener('mouseup', function(){ isDragging=false; lbImg.style.cursor='grab'; });
+</script>
+</body>
+</html>
